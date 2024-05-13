@@ -2,9 +2,7 @@ import os
 from flask import Flask, request, jsonify, make_response
 import pymysql
 import pymysql.cursors
-from dotenv import load_dotenv
 
-load_dotenv()
 
 app = Flask(__name__)
 
