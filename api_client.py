@@ -79,11 +79,14 @@ def update_customer(id):
         return make_response(jsonify({"error": "Customer not found"}), 404)
     data = request.json
     updates = []
+    params = []
     for field in ['Nom', 'Prenom', 'Email', 'Telephone', 'Adresse', 'Ville', 'CodePostal', 'Pays']:
         if field in data:
             updates.append(f"{field} = %s")
+            params.append(data[field])
+    params.append(id)
     update_query = "UPDATE Clients SET " + ", ".join(updates) + " WHERE ClientID = %s"
-    cursor.execute(update_query, [data[field] for field in data if field in updates] + [id])
+    cursor.execute(update_query, params)
     conn.commit()
     cursor.close()
     conn.close()
